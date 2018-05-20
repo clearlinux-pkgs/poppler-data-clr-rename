@@ -4,7 +4,7 @@
 #
 Name     : poppler-data
 Version  : 0.4.9
-Release  : 3
+Release  : 4
 URL      : https://poppler.freedesktop.org/poppler-data-0.4.9.tar.gz
 Source0  : https://poppler.freedesktop.org/poppler-data-0.4.9.tar.gz
 Summary  : Encoding files for use with poppler
