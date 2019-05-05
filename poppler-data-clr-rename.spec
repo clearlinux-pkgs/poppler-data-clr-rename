@@ -4,7 +4,7 @@
 #
 Name     : poppler-data-clr-rename
 Version  : 0.4.9
-Release  : 5
+Release  : 6
 URL      : https://poppler.freedesktop.org/poppler-data-0.4.9.tar.gz
 Source0  : https://poppler.freedesktop.org/poppler-data-0.4.9.tar.gz
 Summary  : Encoding files for use with poppler
@@ -36,6 +36,7 @@ Summary: dev components for the poppler-data-clr-rename package.
 Group: Development
 Requires: poppler-data-clr-rename-data = %{version}-%{release}
 Provides: poppler-data-clr-rename-devel = %{version}-%{release}
+Requires: poppler-data-clr-rename = %{version}-%{release}
 
 %description dev
 dev components for the poppler-data-clr-rename package.
@@ -57,16 +58,22 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1553279270
+export SOURCE_DATE_EPOCH=1557097600
 mkdir -p clr-build
 pushd clr-build
-export LDFLAGS="${LDFLAGS} -fno-lto"
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %cmake ..
-make  %{?_smp_mflags} VERBOSE=1
+make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1553279270
+export SOURCE_DATE_EPOCH=1557097600
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/poppler-data-clr-rename
 cp COPYING %{buildroot}/usr/share/package-licenses/poppler-data-clr-rename/COPYING
