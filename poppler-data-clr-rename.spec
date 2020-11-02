@@ -4,7 +4,7 @@
 #
 Name     : poppler-data-clr-rename
 Version  : 0.4.9
-Release  : 6
+Release  : 7
 URL      : https://poppler.freedesktop.org/poppler-data-0.4.9.tar.gz
 Source0  : https://poppler.freedesktop.org/poppler-data-0.4.9.tar.gz
 Summary  : Encoding files for use with poppler
@@ -52,33 +52,35 @@ license components for the poppler-data-clr-rename package.
 
 %prep
 %setup -q -n poppler-data-0.4.9
+cd %{_builddir}/poppler-data-0.4.9
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1557097600
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1604351854
 mkdir -p clr-build
 pushd clr-build
+export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
 export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %cmake ..
 make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1557097600
+export SOURCE_DATE_EPOCH=1604351854
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/poppler-data-clr-rename
-cp COPYING %{buildroot}/usr/share/package-licenses/poppler-data-clr-rename/COPYING
-cp COPYING.adobe %{buildroot}/usr/share/package-licenses/poppler-data-clr-rename/COPYING.adobe
-cp COPYING.gpl2 %{buildroot}/usr/share/package-licenses/poppler-data-clr-rename/COPYING.gpl2
+cp %{_builddir}/poppler-data-0.4.9/COPYING %{buildroot}/usr/share/package-licenses/poppler-data-clr-rename/1d4d5c8eb511d7e7a901212a6a5ec020843dfb20
+cp %{_builddir}/poppler-data-0.4.9/COPYING.adobe %{buildroot}/usr/share/package-licenses/poppler-data-clr-rename/9c4d7fd28d5715f47d16de8e44e8fed41d805efc
+cp %{_builddir}/poppler-data-0.4.9/COPYING.gpl2 %{buildroot}/usr/share/package-licenses/poppler-data-clr-rename/06877624ea5c77efe3b7e39b0f909eda6e25a4ec
 pushd clr-build
 %make_install
 popd
@@ -343,6 +345,6 @@ popd
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/poppler-data-clr-rename/COPYING
-/usr/share/package-licenses/poppler-data-clr-rename/COPYING.adobe
-/usr/share/package-licenses/poppler-data-clr-rename/COPYING.gpl2
+/usr/share/package-licenses/poppler-data-clr-rename/06877624ea5c77efe3b7e39b0f909eda6e25a4ec
+/usr/share/package-licenses/poppler-data-clr-rename/1d4d5c8eb511d7e7a901212a6a5ec020843dfb20
+/usr/share/package-licenses/poppler-data-clr-rename/9c4d7fd28d5715f47d16de8e44e8fed41d805efc
